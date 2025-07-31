@@ -32,7 +32,7 @@ dependencies {
 group = 'com.acmeair'
 version = '0.0.1-SNAPSHOT'
 description = 'flight-booking-api'
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_1_21
 
 publishing {
     publications {
