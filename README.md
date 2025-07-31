@@ -113,6 +113,95 @@ src/
 ---
 
 
+# 🧾 Assumptions – Flight Booking API
+
+
+## 1. 🛡️ User Authentication
+
+- JWT-based security is implemented.
+- No user registration or login endpoints are provided.
+- Tokens are assumed to be issued externally (e.g., through test configuration or hardcoded utility).
+- All booking-related endpoints (`POST`, `PUT`, `DELETE`) require valid JWT tokens.
+
+---
+
+## 2. 👤 Passenger & Booking Model
+
+- Each booking represents a single passenger on a single flight.
+- Multiple passengers per booking are not supported.
+- Seat assignments and travel class (e.g., Economy/Business) are not included.
+
+---
+
+## 3. 🛫 Flight Data
+
+- Flights are seeded into the H2 in-memory database using an SQL script or programmatically.
+- No CRUD operations are provided for flight management.
+- Flight details are static (cannot be updated or deleted).
+- Seat availability is not managed.
+
+---
+
+## 4. ✅ Validation
+
+- Basic validations like `@NotBlank`, `@Email` are applied.
+- No verification for email format, existing users, or duplicate bookings.
+- Only field-level validation is included; no complex business rules.
+
+---
+
+## 5. 🔍 Search Endpoint
+
+- Filtering is done via:
+  - `origin`, `destination`, optional `departureTime`
+- Pagination and sorting are supported using:
+  - `page`, `size`, `sortBy`, `sortDir`
+- Only exact matches are supported (no fuzzy search).
+
+---
+
+## 6. 📆 Date Handling
+
+- Dates are handled using the system's local timezone.
+- `departureTime` is passed in ISO format: `yyyy-MM-ddthh:mi:ss`
+- No timezone conversion logic is included.
+
+---
+
+## 7. ✏️ Booking Update
+
+- Only the passenger's `name` and `email` can be updated.
+- Flight ID is immutable once the booking is created.
+- Booking cannot be reassigned to a different flight.
+
+---
+
+## 8. ❗ Error Handling
+
+- Global exception handler is used for consistent error responses.
+- Handles:
+  - Resource not found
+  - Invalid request data
+  - Unauthorized access
+
+---
+
+## 9. 🔐 Security
+
+- JWT tokens are validated for structure and signature only.
+- Token expiry and refresh are not managed within this service.
+
+---
+
+## 10. 🗃️ Database
+
+- Uses H2 in-memory DB for testing and development.
+- Data is cleared on every restart.
+
+---
+
+
+
 ## 📄 License
 
 This project is open source and available for any use.
